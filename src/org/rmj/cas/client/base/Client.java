@@ -27,7 +27,7 @@ public class Client implements GTransaction{
         Connection loConn = null;
         loConn = setConnection();
         
-        loObj.setClientID("X" + MiscUtil.getNextCode(loObj.getTable(), "sClientID", true, loConn, psBranchCd).substring(1, 12) );
+        loObj.setClientID(MiscUtil.getNextCode(loObj.getTable(), "sClientID", true, loConn, psBranchCd));
         
         //init detail
         poMobile = new ArrayList<>();
@@ -126,7 +126,7 @@ public class Client implements GTransaction{
             Connection loConn = null;
             loConn = setConnection();
 
-            String lsTransNox = "X" + MiscUtil.getNextCode(loNewEnt.getTable(), "sClientID", false, loConn, psBranchCd).substring(1, 12);
+            String lsTransNox = MiscUtil.getNextCode(loNewEnt.getTable(), "sClientID", false, loConn, psBranchCd);
   
             loNewEnt.setModifiedBy(poGRider.getUserID());
             loNewEnt.setDateModified(poGRider.getServerDate());
