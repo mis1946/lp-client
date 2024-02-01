@@ -64,6 +64,7 @@ public class ClientMasterController implements Initializable{
     @FXML private ComboBox cboGender;
     @FXML private ComboBox cboCivilStat;
     @FXML private TextField txtField01;
+    @FXML private TextField txtField02;
     @FXML private TextField txtField03;
     @FXML private TextField txtField04;
     @FXML private TextField txtField05;
@@ -144,6 +145,7 @@ public class ClientMasterController implements Initializable{
         psClientID = "";
         psClientNm = "";
         psCltAddrs = "";
+        psCompnyNm = "";
         unloadScene(event);
     }
 
@@ -159,7 +161,10 @@ public class ClientMasterController implements Initializable{
         poClient.setMaster(8, String.valueOf(cboGender.getSelectionModel().getSelectedIndex()));
         poClient.setMaster(9, String.valueOf(cboCivilStat.getSelectionModel().getSelectedIndex()));        
         
+        
         if (poClient.saveRecord()){
+            
+            psCompnyNm = poClient.getMaster("sCompnyNm").toString();
             psClientID = poClient.getMaster("sClientID").toString();
             psClientNm = poClient.getMaster("sClientNm").toString();
             //psCltAddrs = poClient.getMaster("sHouseNox").toString() + " " + 
@@ -354,6 +359,7 @@ public class ClientMasterController implements Initializable{
         cboCivilStat.getSelectionModel().select(0);
 
         txtField01.setText("");
+        txtField02.setText("");
         txtField03.setText("");
         txtField04.setText("");
         txtField05.setText("");
@@ -373,6 +379,7 @@ public class ClientMasterController implements Initializable{
 
     private void initFields(){
         txtField03.focusedProperty().addListener(masterValidate);
+        txtField02.focusedProperty().addListener(masterValidate);
         txtField04.focusedProperty().addListener(masterValidate);
         txtField05.focusedProperty().addListener(masterValidate);
         txtField06.focusedProperty().addListener(masterValidate);
@@ -386,6 +393,7 @@ public class ClientMasterController implements Initializable{
         txtField82.focusedProperty().addListener(masterValidate);
         
         txtField03.setOnKeyPressed(this::txtField_KeyPressed);
+        txtField02.setOnKeyPressed(this::txtField_KeyPressed);
         txtField04.setOnKeyPressed(this::txtField_KeyPressed);
         txtField05.setOnKeyPressed(this::txtField_KeyPressed);
         txtField06.setOnKeyPressed(this::txtField_KeyPressed);
@@ -410,6 +418,7 @@ public class ClientMasterController implements Initializable{
         poClient.setMaster("cClientTp", String.valueOf(pnClientTp));
         
         txtField01.setText((String) poClient.getMaster("sClientID"));
+        txtField02.setText((String) poClient.getMaster("sCompnyNm"));
         txtField03.setText((String) poClient.getMaster("sLastName"));
         txtField04.setText((String) poClient.getMaster("sFrstName"));
         txtField05.setText((String) poClient.getMaster("sMiddName"));
@@ -433,11 +442,14 @@ public class ClientMasterController implements Initializable{
     
     private void enableClientName(){
         if (poClient.getMaster("cClientTp").equals("0")){
-            txtField07.setEditable(true);
-            txtField07.setFocusTraversable(true);
+            txtField02.setEditable(true);
+            txtField02.setFocusTraversable(true);
+            txtField02.requestFocus();
         }else{
-            txtField07.setEditable(false);
-            txtField07.setFocusTraversable(false);
+            txtField02.setEditable(false);
+            txtField02.setFocusTraversable(false);
+            txtField02.setText("");
+            txtField02.requestFocus();
         }
     }
 
@@ -467,6 +479,9 @@ public class ClientMasterController implements Initializable{
     public void setClientName(String fsClientName){
         this.psClientNm = fsClientName;
     }
+    public void setCompanyName(String fsCompanyName){
+        this.psCompnyNm = fsCompanyName;
+    }
     
     public void setClientType(int fnValue){
         this.pnClientTp = fnValue;
@@ -474,6 +489,7 @@ public class ClientMasterController implements Initializable{
     
     public String getClientID(){return this.psClientID;}
     public String getClientNm(){return this.psClientNm;}
+    public String getCompnyNm(){return this.psCompnyNm;}
     public String getCltAddrs(){return this.psCltAddrs;}
 
     //Objects
@@ -483,6 +499,7 @@ public class ClientMasterController implements Initializable{
     private int pnClientTp = 1;
     private String psClientID;
     private String psClientNm;
+    private String psCompnyNm;
     private String psCltAddrs;
     private boolean pbNewRecord;
     private final String pxeDateFormat = "yyyy-MM-dd";
@@ -516,6 +533,15 @@ public class ClientMasterController implements Initializable{
             else lsValue = txtField.getText();
 
             switch (lnIndex){
+                case 2: /*sCompnyNme*/
+                    if (lsValue.length() > 256){
+                        ShowMessageFX.Warning(poStage, "Please inform MIS Dept. if your entry was correct.", pxeModuleName, "Data too long");
+                        txtField.requestFocus();
+                    }
+                    
+                    poClient.setMaster(23, lsValue);
+                    txtField.setText((String)poClient.getMaster(23));
+                    break;
                 case 3: /*sLastname*/
                 case 4: /*sFrstName*/
                 case 5: /*sMiddName*/
@@ -622,4 +648,16 @@ public class ClientMasterController implements Initializable{
             CommonUtils.SetNextFocus(combo);
         } 
     }
+    
+    @FXML
+    private void cboClientTp_Clicked(ActionEvent event) {
+            // Get the selected index
+            int selectedIndex = cboClientTp.getSelectionModel().getSelectedIndex();
+
+            if (selectedIndex == 0 || selectedIndex == 1) {
+               poClient.setMaster(2, String.valueOf(cboClientTp.getSelectionModel().getSelectedIndex()));
+               enableClientName();
+            }
+        }
+    
 }

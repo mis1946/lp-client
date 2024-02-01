@@ -94,7 +94,14 @@ public class Client implements GTransaction{
             return loResult;
         }
         
-        if (loNewEnt.getLastName() == null || loNewEnt.getLastName().isEmpty()){
+        if (loNewEnt.getClientType().equals("0")){
+        if (loNewEnt.getCompanyName() == null || loNewEnt.getCompanyName().isEmpty()){
+             setMessage("Invalid Company name detected.");
+            return loResult;
+        } 
+        }
+        
+           if (loNewEnt.getLastName() == null || loNewEnt.getLastName().isEmpty()){
             setMessage("Invalid last name detected.");
             return loResult;
         }

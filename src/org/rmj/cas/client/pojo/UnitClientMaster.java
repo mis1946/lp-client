@@ -93,6 +93,10 @@ public class UnitClientMaster implements Serializable, GEntity {
     @Column(name = "dModified")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dModified;
+    
+    @Column(name = "sCompnyNm")
+    private String sCompnyNm;
+    
 
     LinkedList laColumns = null;
     
@@ -113,6 +117,7 @@ public class UnitClientMaster implements Serializable, GEntity {
         this.cSPClient = "0";
         this.cCPClient = "0";
         this.cRecdStat = RecordStatus.ACTIVE;
+        this.sCompnyNm = "";
         
         laColumns = new LinkedList();
         laColumns.add("sClientID");
@@ -137,6 +142,7 @@ public class UnitClientMaster implements Serializable, GEntity {
         laColumns.add("cRecdStat");
         laColumns.add("sModified");
         laColumns.add("dModified");
+        laColumns.add("sCompnyNm");
     }
     
     public void setClientID(String sClientID){
@@ -151,6 +157,12 @@ public class UnitClientMaster implements Serializable, GEntity {
     }
     public String getClientType(){
         return cClientTp;
+    }
+    public void setCompanyName(String sCompnyNm){
+        this.sCompnyNm = sCompnyNm;
+    }
+    public String getCompanyName(){
+        return sCompnyNm;
     }
     
     public void setLastName(String sLastName){
@@ -360,6 +372,7 @@ public class UnitClientMaster implements Serializable, GEntity {
             case 20: return cRecdStat;
             case 21: return sModified;
             case 22: return dModified;
+            case 23: return sCompnyNm;
             default: return null;
         }
     }
@@ -437,6 +450,7 @@ public class UnitClientMaster implements Serializable, GEntity {
             case 20: cRecdStat = (String) foValue; break;
             case 21: sModified = (String) foValue; break;
             case 22: dModified = (Date) foValue; break;
+            case 23: sCompnyNm = (String) foValue; break;
         }    
     }
 

@@ -32,11 +32,13 @@ public class ClientFX extends Application {
     
     private String psClientID = "";
     private String psClientNm = "";
+    private String psCompnyNm = "";
     private String psCltAddrs = "";
     
     public String getClassName(){return this.getClass().getSimpleName();}
     public String getClientID(){return this.psClientID;}
     public String getClientNm(){return this.psClientNm;}
+    public String getCompnyNm(){return this.psCompnyNm;}
     public String getCltAddrs(){return this.psCltAddrs;}
     public void setGRider(GRider foGRider){poGRider = foGRider;}
             
@@ -83,10 +85,12 @@ public class ClientFX extends Application {
         if (oClient.getClientID().equals("")){
             psClientID = "";
             psClientNm = "";
+            psCompnyNm = "";
             psCltAddrs = "";
         }else{
             psClientID = oClient.getClientID();
             psClientNm = oClient.getClientNm();
+            psCompnyNm = oClient.getCompnyNm();
             psCltAddrs = oClient.getCltAddrs();
         }
     }
