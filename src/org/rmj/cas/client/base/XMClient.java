@@ -377,9 +377,9 @@ public class XMClient implements XMRecord{
     }
     
     public JSONObject SearchClient(String fsValue, boolean fbByCode){
-        String lsHeader = "ID»Name»Address»Last Name»First Name»Midd Name»Suffix";
-        String lsColName = "sClientID»sClientNm»xAddressx»sLastName»sFrstName»sMiddName»sSuffixNm";
-        String lsColCrit = "a.sClientID»a.sClientNm»CONCAT(b.sHouseNox, ' ', b.sAddressx, ', ', c.sTownName, ' ', d.sProvName)»a.sLastName»a.sFrstName»a.sMiddName»a.sSuffixNm";
+        String lsHeader = "ID»Name»Company Name»Address»Last Name»First Name»Midd Name»Suffix";
+        String lsColName = "sClientID»sClientNm»sCompnyNm»xAddressx»sLastName»sFrstName»sMiddName»sSuffixNm";
+        String lsColCrit = "a.sClientID»a.sClientNm»sCompnyNm»CONCAT(b.sHouseNox, ' ', b.sAddressx, ', ', c.sTownName, ' ', d.sProvName)»a.sLastName»a.sFrstName»a.sMiddName»a.sSuffixNm";
         String lsSQL = "SELECT " +
                             "  a.sClientID" +
                             ", a.sClientNm" +
@@ -388,6 +388,8 @@ public class XMClient implements XMRecord{
                             ", a.sFrstName" + 
                             ", a.sMiddName" + 
                             ", a.sSuffixNm" + 
+                            ", a.cClientTp" + 
+                            ", a.sCompnyNm" + 
                         " FROM Client_Master a" + 
                             " LEFT JOIN Client_Address b" + 
                                 " ON a.sClientID = b.sClientID" + 
@@ -407,8 +409,8 @@ public class XMClient implements XMRecord{
     }
     
     public JSONObject BrowseClient(String fsValue, boolean fbByCode){
-        String lsHeader = "ID»Name»Address»Last Name»First Name»Midd Name»Suffix";
-        String lsColName = "sClientID»sClientNm»xAddressx»sLastName»sFrstName»sMiddName»sSuffixNm";        
+        String lsHeader = "ID»Name»Company Name»Address»Last Name»First Name»Midd Name»Suffix";
+        String lsColName = "sClientID»sClientNm»sCompnyNm»xAddressx»sLastName»sFrstName»sMiddName»sSuffixNm";        
         String lsSQL = "SELECT " +
                             "  a.sClientID" +
                             ", a.sClientNm" +
@@ -416,7 +418,9 @@ public class XMClient implements XMRecord{
                             ", a.sLastName" + 
                             ", a.sFrstName" + 
                             ", a.sMiddName" + 
-                            ", a.sSuffixNm" + 
+                            ", a.sSuffixNm" +
+                            ", a.cClientTp" + 
+                            ", a.sCompnyNm" + 
                         " FROM Client_Master a" + 
                             " LEFT JOIN Client_Address b" + 
                                 " ON a.sClientID = b.sClientID" + 

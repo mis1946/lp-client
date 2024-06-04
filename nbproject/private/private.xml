@@ -8,6 +8,9 @@
         <group>
             <file>file:/C:/Users/Maynard/Documents/GitHub/lp-client/src/org/rmj/cas/client/pojo/UnitClientAddress.java</file>
         </group>
-        <group name="integsys-lp"/>
+        <group name="integsys-lp">
+            <file>file:/C:/Users/Maynard/Documents/GitHub/lp-client/src/org/rmj/cas/client/base/XMClient.java</file>
+            <file>file:/C:/Users/Maynard/Documents/GitHub/lp-client/src/org/rmj/cas/client/application/ClientMasterController.java</file>
+        </group>
     </open-files>
 </project-private>
